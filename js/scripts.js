@@ -163,6 +163,10 @@ var updateOrderCost = function(order) {
   $(".order-total-cost").empty().append(formatCost(order.cost()));
 };
 
+var close_box = function() {
+	window.location.reload(true);
+};
+
 
 //DOCUMENT READY
 
@@ -185,5 +189,27 @@ $(function() {
     idCounter++;
     workingPizza = new Pizza(idCounter, "Medium");
     setupPizzaBuilder(workingPizza);
+  });
+
+  $(".lightbox").on("submit", function(event) {
+    event.preventDefault();
+
+    $('.backdrop, .box').animate({'opacity':'.50'}, 100, 'linear');
+    $('.box').animate({'opacity':'1.00'}, 100, 'linear');
+    $('.backdrop, .box').css('display', 'block');
+    if (workingOrder.delivery) {
+      $(".confirmation").append("Your order has been confirmed!<br><br>If Epic Pizza were real, it would be on its way to " + $("#inputAddress1").val() + " in 30 minutes or less!<br><br>");
+    } else {
+      $(".confirmation").append("Your order has been confirmed!<br><br>If Epic Pizza were real, it would be available for carryout in 30 minutes or less!<br><br>");
+    }
+    $(".confirmation").append(" Your order total is " + formatCost(workingOrder.cost()) + ".");
+  });
+
+  $(".close").on("click", function() {
+    close_box();
+  });
+
+  $(".backdrop").on("click", function() {
+    close_box();
   });
 });
