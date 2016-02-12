@@ -33,5 +33,14 @@ describe('Pizza', function() {
     expect(testPizza.getCost()).to.equal(1350);
     expect(testPizza.pizzaToppings.length).to.equal(4);
   });
-  
+
+  it("can have multiple copies of the same topping", function() {
+    var testPizza = new Pizza();
+    testPizza.pizzaSize = "large";
+    testPizza.pizzaToppings.push("anchovies");
+    testPizza.pizzaToppings.push("anchovies");
+    expect(testPizza.pizzaToppings[2]).to.equal("anchovies");
+    expect(testPizza.getCost()).to.equal(1350);
+  });
+
 });
