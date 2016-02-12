@@ -16,67 +16,64 @@
 
     <link rel="stylesheet" href="css/styles.css" charset="utf-8">
 
-    <script src="js/scripts.js"></script>
-
     <title>Pizza Order Form</title>
   </head>
   <body>
     <div class="container">
       <h1>Pizza Order Form</h1>
       <div class="col-md-6 pizza-builder">
-        <div class="pizza-form">
-          <form>
+        <h2>Add a Pizza to Order</h2>
+        <div class="pizza-builder">
+          <form id="add-to-order">
             <div class="form-group">
-              <h2>Select Pizza Size</h2>
+              <h3>Select Pizza Size</h3>
               <div class="radio">
                 <label>
-                  <input type="radio" name="pizza-size" class="pizza-size" id="small" value="small">
+                  <input type="radio" name="pizza-size" class="pizza-size" id="Small" value="Small">
                   Small (10")
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="pizza-size" class="pizza-size" id="medium" value="medium" checked>
+                  <input type="radio" name="pizza-size" class="pizza-size" id="Medium" value="Medium">
                   Medium (12")
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="pizza-size" class="pizza-size" id="medium" value="large">
+                  <input type="radio" name="pizza-size" class="pizza-size" id="Large" value="Large">
                   Large (14")
                 </label>
               </div>
-
-              <h2>Select Pizza Toppings</h2>
-              <div class="topping-checkboxes">
-
-              </div>
-
-
+              <h3>Select Pizza Toppings</h3>
+              <div class="topping-checkboxes"></div>
             </div>
 
+
+            <div class="working-pizza">
+              <h3>Your Pizza</h2>
+              <ul class="list-unstyled">
+                <li><strong>Cost:&nbsp;</strong><span class="working-cost">$10.00</span></li>
+                <li><strong>Size:&nbsp;</strong><span class="working-size">Medium</span></li>
+                <li><strong>Toppings:</strong>
+                    <ul class="working-toppings"></ul>
+                </li>
+              </ul>
+              <button type="submit" class="btn btn-default">Add to Order</button>
+            </div>
           </form>
-
-        </div>
-        <div class="working-pizza">
-          <h2>Your Pizza</h2>
-
-          <ul class="list-unstyled">
-            <li><strong>Cost:&nbsp;</strong><span class="working-cost">$10.00</span></li>
-            <li><strong>Size:&nbsp;</strong><span class="working-size">Medium</span></li>
-            <li><strong>Toppings:</strong>
-                <ul class="working-toppings"></ul>
-            </li>
-          </ul>
-
         </div>
       </div>
 
       <div class="col-md-6 current-order">
+        <h2>Your Order</h2>
+        <div class="order-pizzas"></div>
 
       </div>
 
     </div>
 
   </body>
+  
+  <script src="js/scripts.js"></script>
 </html>
