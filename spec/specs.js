@@ -19,7 +19,17 @@ describe('Pizza', function() {
     testPizza.pizzaToppings.push("mushrooms");
     testPizza.pizzaToppings.push("pepperoni");
     testPizza.pizzaToppings.push("sausage");
-    expect(testPizza.getCost()).to.equal(1450);
+    expect(testPizza.cost()).to.equal(1450);
+  });
+
+  it("returns a formatted cost for DOM use", function() {
+    var testPizza = new Pizza();
+    testPizza.pizzaSize = "large";
+    testPizza.pizzaToppings.push("anchovies");
+    testPizza.pizzaToppings.push("mushrooms");
+    testPizza.pizzaToppings.push("pepperoni");
+    testPizza.pizzaToppings.push("sausage");
+    expect(formatCost(testPizza.cost())).to.equal("$14.50");
   });
 
   it("allows toppings to be removed", function() {
@@ -30,7 +40,7 @@ describe('Pizza', function() {
     testPizza.pizzaToppings.push("pepperoni");
     testPizza.pizzaToppings.push("sausage");
     testPizza.removeTopping("sausage");
-    expect(testPizza.getCost()).to.equal(1350);
+    expect(testPizza.cost()).to.equal(1350);
     expect(testPizza.pizzaToppings.length).to.equal(4);
   });
 
@@ -40,7 +50,7 @@ describe('Pizza', function() {
     testPizza.pizzaToppings.push("anchovies");
     testPizza.pizzaToppings.push("anchovies");
     expect(testPizza.pizzaToppings[2]).to.equal("anchovies");
-    expect(testPizza.getCost()).to.equal(1350);
+    expect(testPizza.cost()).to.equal(1350);
   });
 
 });

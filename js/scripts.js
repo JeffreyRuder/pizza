@@ -17,7 +17,7 @@ var toppingCosts = {
   "sausage": 100
 };
 
-Pizza.prototype.getCost = function () {
+Pizza.prototype.cost = function () {
   var runningTotal = sizeCosts[this.pizzaSize];
   for (var topping of this.pizzaToppings) {
     runningTotal += toppingCosts[topping];
@@ -31,3 +31,22 @@ Pizza.prototype.removeTopping = function (topping) {
     this.pizzaToppings.splice(toppingIndex, 1);
   }
 };
+
+var formatCost = function(cost) {
+  return "$" + (cost / 100).toFixed(2);
+}
+
+//USER INTERFACE
+
+$(function() {
+
+  var workingPizza = new Pizza;
+  workingPizza.pizzaSize = "medium";
+
+  $(".pizza-size").change(function() {
+    workingPizza.pizzaSize = $(this).val();
+    $(".working-cost").empty().append(formatCost(workingPizza.cost()));
+  });
+
+
+});
