@@ -60,4 +60,32 @@ describe('Order', function() {
     expect(testOrder.pizzas[0].pizzaToppings[0]).to.equal("anchovies");
   });
 
+  it("returns the total cost of the order", function() {
+    var testOrder = new Order();
+    var firstPizza = new Pizza(1, "Large");
+    var secondPizza = new Pizza(2, "Medium");
+    testOrder.addPizza(firstPizza);
+    testOrder.addPizza(secondPizza);
+    expect(testOrder.cost()).to.equal(2200);
+  });
+
+  it("returns a formatted cost for DOM use", function() {
+    var testOrder = new Order();
+    var firstPizza = new Pizza(1, "Large");
+    var secondPizza = new Pizza(2, "Medium");
+    testOrder.addPizza(firstPizza);
+    testOrder.addPizza(secondPizza);
+    expect(formatCost(testOrder.cost())).to.equal("$22.00");
+  });
+
+  it("adds a charge for delivery orders", function() {
+    var testOrder = new Order();
+    var firstPizza = new Pizza(1, "Large");
+    var secondPizza = new Pizza(2, "Medium");
+    testOrder.addPizza(firstPizza);
+    testOrder.addPizza(secondPizza);
+    testOrder.delivery = true;
+    expect(testOrder.cost()).to.equal(2400);
+  });
+
 });

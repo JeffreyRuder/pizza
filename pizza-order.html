@@ -65,15 +65,58 @@
         </div>
       </div>
 
-      <div class="col-md-6 current-order">
+      <div class="col-md-6 current-order" hidden>
         <h2>Your Order</h2>
+        <h3>Total Cost: <span class="order-total-cost"></span></h3>
         <div class="order-pizzas"></div>
-
+        <form>
+          <div class="form-group">
+            <label class="radio-inline">
+              <input type="radio" class="order-type" name="order-type" id="delivery" value="delivery" required> Delivery
+            </label>
+            <label class="radio-inline">
+              <input type="radio" class="order-type" name="order-type" id="carryout" value="carryout" checked required> Carryout
+            </label>
+          </div>
+          <div class="delivery-charge"></div>
+          <div class="address-inputs" hidden>
+            <h3>Delivery Address</h3>
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="inputAddress1" class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputAddress1" placeholder="Address Line 1">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputAddress2" placeholder="Address Line 2">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputCity" class="col-sm-2 control-label">City</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="inputCity" placeholder="City">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">State</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="inputState" placeholder="State">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputZip" class="col-sm-2 control-label">Zip</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="inputZip" placeholder="Zip Code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-
     </div>
-
   </body>
-  
   <script src="js/scripts.js"></script>
 </html>

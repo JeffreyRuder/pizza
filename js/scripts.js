@@ -1,6 +1,9 @@
 function Order() {
   this.pizzas = [];
+  this.delivery;
 }
+
+var DELIVERY_CHARGE = 200;
 
 Order.prototype.addPizza = function (pizza) {
   var pizzaToAdd = new Pizza(pizza.pizzaId, pizza.pizzaSize);
@@ -8,6 +11,17 @@ Order.prototype.addPizza = function (pizza) {
     pizzaToAdd.pizzaToppings.push(topping);
   });
   this.pizzas.push(pizzaToAdd);
+};
+
+Order.prototype.cost = function () {
+  var runningTotal = 0;
+  for (var pizza of this.pizzas) {
+    runningTotal += pizza.cost();
+  }
+  if (this.delivery) {
+    runningTotal += DELIVERY_CHARGE;
+  }
+  return runningTotal;
 };
 
 function Pizza(pizzaId, size) {
@@ -70,7 +84,7 @@ var setupPizzaBuilder = function(pizza) {
   $("input[value='cheese']").prop("checked", true);
   pizza.pizzaToppings.push("cheese");
   addToppingToPizzaBuilderList("cheese");
-  updateCost(pizza);
+  updatePizzaCost(pizza);
   beginSizeListener(pizza);
   beginToppingListener(pizza);
 };
@@ -79,7 +93,7 @@ var beginSizeListener = function(pizza) {
   $(".pizza-size").change(function() {
     pizza.pizzaSize = $(this).val();
     $(".working-size").empty().append(pizza.pizzaSize);
-    updateCost(pizza);
+    updatePizzaCost(pizza);
   });
 }
 
@@ -89,12 +103,11 @@ var beginToppingListener = function(pizza) {
     if (pizza.pizzaToppings.indexOf(thisTopping) > -1) {
       pizza.removeTopping(thisTopping);
       removeToppingFromPizzaBuilderList(thisTopping);
-      updateCost(pizza);
     } else {
       pizza.pizzaToppings.push(thisTopping);
       addToppingToPizzaBuilderList(thisTopping);
-      updateCost(pizza);
     }
+    updatePizzaCost(pizza);
   });
 }
 
@@ -106,12 +119,11 @@ var removeToppingFromPizzaBuilderList = function(topping) {
   $(".working-topping:contains(" + topping + ")").remove();
 };
 
-var updateCost = function(pizza) {
+var updatePizzaCost = function(pizza) {
   $(".working-cost").empty().append(formatCost(pizza.cost()));
 };
 
-var updateOrderList = function(pizza, order) {
-
+var updateOrderList = function(order) {
   $(".order-pizzas").empty();
   for (var eachPizza of order.pizzas) {
     $(".order-pizzas").append(
@@ -127,6 +139,31 @@ var updateOrderList = function(pizza, order) {
   }
 };
 
+var beginDeliveryListener = function(order) {
+  $(".order-type").change(function() {
+    var orderType = $(this).val();
+    if (orderType === "delivery") {
+      order.delivery = true;
+      if (DELIVERY_CHARGE > 0) {
+        $(".delivery-charge").append("<p>A delivery charge of " +
+          formatCost(DELIVERY_CHARGE) + " will be added to your order. This delivery charge is not a tip paid to your driver.</p>"
+        );
+      }
+      $(".address-inputs").show();
+    } else {
+      order.delivery = false;
+      $(".delivery-charge").empty();
+      $(".address-inputs").hide();
+    }
+    updateOrderCost(order);
+  });
+}
+
+var updateOrderCost = function(order) {
+  $(".order-total-cost").empty().append(formatCost(order.cost()));
+};
+
+
 //DOCUMENT READY
 
 $(function() {
@@ -138,9 +175,13 @@ $(function() {
 
   $("#add-to-order").on("submit", function(event) {
     event.preventDefault();
-    console.log("Submission received");
+
     workingOrder.addPizza(workingPizza);
-    updateOrderList(workingPizza, workingOrder);
+    updateOrderList(workingOrder);
+    updateOrderCost(workingOrder);
+    beginDeliveryListener(workingOrder);
+    $(".current-order").show();
+
     idCounter++;
     workingPizza = new Pizza(idCounter, "Medium");
     setupPizzaBuilder(workingPizza);
