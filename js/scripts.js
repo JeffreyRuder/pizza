@@ -11,6 +11,7 @@ var sizeCosts = {
 
 var toppingCosts = {
   "cheese": 0,
+  "extra cheese": 50,
   "anchovies": 75,
   "mushrooms": 25,
   "pepperoni": 50,
@@ -34,18 +35,61 @@ Pizza.prototype.removeTopping = function (topping) {
 
 var formatCost = function(cost) {
   return "$" + (cost / 100).toFixed(2);
-}
+};
 
 //USER INTERFACE
+
+var populateToppings = function() {
+  for (var topping in toppingCosts) {
+    if (toppingCosts.hasOwnProperty(topping)) {
+      $(".topping-checkboxes").append(
+        "<div class='checkbox'>" +
+          "<label>" +
+            "<input type='checkbox' class='pizza-topping' value='" + topping + "'>" + topping + " (" + formatCost(toppingCosts[topping]) + ")" +
+          "</label>" +
+        "</div>"
+      );
+    }
+  }
+  $("input[value='cheese']").attr("checked", true);
+};
+
+var appendToppingToList = function(topping) {
+  $(".working-toppings").append("<li class='working-topping'>" + topping + "</li>");
+};
+
+var removeToppingFromList = function(topping) {
+  $(".working-topping:contains(" + topping + ")").remove();
+}
+
+//DOCUMENT READY
 
 $(function() {
 
   var workingPizza = new Pizza;
   workingPizza.pizzaSize = "medium";
 
+  populateToppings();
+  appendToppingToList("cheese");
+
   $(".pizza-size").change(function() {
     workingPizza.pizzaSize = $(this).val();
     $(".working-cost").empty().append(formatCost(workingPizza.cost()));
+  });
+
+  $(".pizza-topping").change(function () {
+    var thisTopping = $(this).val();
+    console.log(thisTopping);
+    if (workingPizza.pizzaToppings.indexOf(thisTopping) > -1) {
+      workingPizza.removeTopping(thisTopping);
+      removeToppingFromList(thisTopping);
+      $(".working-cost").empty().append(formatCost(workingPizza.cost()));
+    } else {
+      workingPizza.pizzaToppings.push(thisTopping);
+      console.log(workingPizza.pizzaToppings);
+      appendToppingToList(thisTopping);
+      $(".working-cost").empty().append(formatCost(workingPizza.cost()));
+    }
   });
 
 
