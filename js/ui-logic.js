@@ -72,6 +72,20 @@ var updateOrderList = function(order) {
   }
 };
 
+var updateOrderCost = function(order) {
+  $(".order-total-cost").empty().append(formatCost(order.cost()));
+};
+
+var updateOrder = function(order) {
+  updateOrderList(order);
+  updateOrderCost(order);
+  if (order.pizzas.length === 0) {
+    $(".current-order").hide();
+  } else {
+    $(".current-order").show();
+  }
+}
+
 var deliveryListener = function(order) {
   $(".order-type").change(function() {
     var orderType = $(this).val();
@@ -92,14 +106,6 @@ var deliveryListener = function(order) {
   });
 }
 
-var updateOrderCost = function(order) {
-  $(".order-total-cost").empty().append(formatCost(order.cost()));
-};
-
-var close_box = function() {
-	window.location.reload(true);
-};
-
 //DOCUMENT READY
 
 $(function() {
@@ -113,28 +119,20 @@ $(function() {
   //add pizza to order
   $("#add-to-order").on("submit", function(event) {
     event.preventDefault();
-
     workingOrder.addPizza(workingPizza);
-    updateOrderList(workingOrder);
-    updateOrderCost(workingOrder);
-    $(".current-order").show();
-
+    updateOrder(workingOrder);
     pizzaIdCounter++;
     workingPizza = new Pizza(pizzaIdCounter, "Medium");
     setupPizzaBuilder(workingPizza);
   });
 
   //remove pizza from order
-  $('body').on('click', '.btn-link', function () {
+  $(document).on('click', '.btn-link', function() {
     var indexToRemove = workingOrder.pizzas.findIndex(function(elem, index, array) {
       return elem.pizzaId === $(this).prop("id");
     });
     workingOrder.pizzas.splice(indexToRemove, 1);
-    updateOrderList(workingOrder);
-    updateOrderCost(workingOrder);
-    if (workingOrder.pizzas.length === 0) {
-      $(".current-order").hide();
-    }
+    updateOrder(workingOrder);
   });
 
   //finalize order
@@ -153,10 +151,10 @@ $(function() {
   });
 
   $(".close").on("click", function() {
-    close_box();
+    window.location.reload(true);
   });
 
   $(".backdrop").on("click", function() {
-    close_box();
+    window.location.reload(true);
   });
 });
