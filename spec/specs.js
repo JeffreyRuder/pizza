@@ -58,6 +58,18 @@ describe('Order', function() {
     var testOrder = new Order();
     testOrder.addPizza(testPizza);
     expect(testOrder.pizzas[0].pizzaToppings[0]).to.equal("anchovies");
+    expect(testOrder.pizzas.findIndex(function(elem, index, arr) {
+      return elem.pizzaSize === "Large" && elem.pizzaToppings[0] === "anchovies";
+    })).to.equal(0);
+  });
+
+  it("allows pizzas to be removed", function() {
+    var testPizza = new Pizza(1, "Large");
+    testPizza.pizzaToppings.push("anchovies");
+    var testOrder = new Order();
+    testOrder.addPizza(testPizza);
+    testOrder.pizzas.splice(0, 1);
+    expect(testOrder.pizzas.length).to.equal(0);
   });
 
   it("returns the total cost of the order", function() {
