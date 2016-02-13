@@ -1,25 +1,23 @@
-# addressBook
+# Epic Pizza
 
-##### Epicodus Section:  JavaScript OO - Address Book
-
-#### By Epicodus Lessons
+#### By Jeffrey Ruder
 
 ## Description
 
-This application is a demonstration of constructors and prototypes using JavaScript to create a simple Address Book app.
+This application is a demonstration of constructors and prototypes using JavaScript to create a simple pizza ordering app. It also makes extensive use of jQuery to manage interactions between the DOM and JavaScript objects.
 
 ## Setup
 
-Install addressBook by cloning this repository.
+Install Epic Pizza by cloning this repository and navigate to pizza-order.html in your browser.
 
 ## Technologies Used
 
-Application: JavaScript and jQuery
-Testing:  Mocha and Chai
+* Application: JavaScript and jQuery
+* Testing:  Mocha and Chai
 
 ### Legal
 
-Copyright (c) 2015 **Epicodus**
+Copyright (c) 2015 **Jeffrey Ruder**
 
 This software is licensed under the MIT license.
 
