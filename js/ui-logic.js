@@ -12,7 +12,7 @@ var setupPizzaBuilder = function(pizza) {
       );
     }
   }
-  $("#" + pizza.pizzaSize).prop("checked", true)
+  $("#" + pizza.pizzaSize).prop("checked", true);
   $("input[value='cheese']").prop("checked", true);
   pizza.pizzaToppings.push("cheese");
   addToppingToPizzaBuilderList("cheese");
@@ -27,7 +27,7 @@ var beginSizeListener = function(pizza) {
     $(".working-size").empty().append(pizza.pizzaSize);
     updatePizzaCost(pizza);
   });
-}
+};
 
 var beginToppingListener = function(pizza) {
   $(".pizza-topping").change(function() {
@@ -41,7 +41,7 @@ var beginToppingListener = function(pizza) {
     }
     updatePizzaCost(pizza);
   });
-}
+};
 
 var addToppingToPizzaBuilderList = function(topping) {
   $(".working-toppings").append("<li class='working-topping'>" + topping + "</li>");
@@ -84,7 +84,7 @@ var updateOrder = function(order) {
   } else {
     $(".current-order").show();
   }
-}
+};
 
 var deliveryListener = function(order) {
   $(".order-type").change(function() {
@@ -104,7 +104,7 @@ var deliveryListener = function(order) {
     }
     updateOrderCost(order);
   });
-}
+};
 
 //DOCUMENT READY
 

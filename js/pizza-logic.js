@@ -2,7 +2,7 @@ function Pizza(pizzaId, size) {
   this.pizzaId = pizzaId;
   this.pizzaToppings = [];
   this.pizzaSize = size;
-};
+}
 
 var sizeCosts = {
   "Small": 800,
@@ -36,7 +36,7 @@ Pizza.prototype.removeTopping = function (topping) {
 
 function Order() {
   this.pizzas = [];
-  this.delivery;
+  this.delivery = false;
 }
 
 var DELIVERY_CHARGE = 200;
